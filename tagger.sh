@@ -16,6 +16,9 @@ frequency_tags=0 # order by frequency tags | 从大到小按识别率排序标�
 
 
 # ============= DO NOT MODIFY CONTENTS BELOW | 请勿修改下方内容 =====================
+if [ -d "venv/" ];then
+  source "venv/bin/activate"
+fi
 
 export HF_HOME="huggingface"
 export TF_CPP_MIN_LOG_LEVEL=3

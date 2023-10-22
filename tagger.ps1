@@ -11,7 +11,7 @@ $general_threshold = 0.35 # general threshold | 总体识别阈值
 $character_threshold = 0.1 # character threshold | 人物姓名识别阈值
 $remove_underscore = 0 # remove_underscore | 下划线转空格，1为开，0为关 
 $undesired_tags = "" # no need tags | 排除标签
-$recursive = 0 # search for images in subfolders recursively | 递归搜索下层文件夹，1为开，0为关
+$recursive = 1 # search for images in subfolders recursively | 递归搜索下层文件夹，1为开，0为关
 $frequency_tags = 0 # order by frequency tags | 从大到小按识别率排序标签，1为开，0为关
 
 

@@ -30,27 +30,18 @@ cuda_minor_version=$(echo "$cuda_version" | awk -F'.' '{print $2}')
 
 echo "Cuda Version:$cuda_version"
 
-if (( cuda_major_version >= 12 )) || (( cuda_major_version == 11 && cuda_minor_version >= 8 )); then
-    echo "install torch 2.0.1+cu118"
-    pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
-    pip install xformers==0.0.21
-elif (( cuda_major_version == 11 && cuda_minor_version == 6 )); then
-    echo "install torch 1.12.1+cu116"
-    pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
-    pip install --upgrade git+https://github.com/facebookresearch/xformers.git@0bad001ddd56c080524d37c84ff58d9cd030ebfd
-    pip install triton==2.0.0.dev20221202
-else
-    echo "Unsupported cuda version:$cuda_version"
-    exit 1
-fi
+echo "install torch 2.0.0+cu118"
+pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118 -i https://mirror.baidu.com/pypi/simple
+pip install xformers==0.0.21 -i https://mirror.baidu.com/pypi/simple
 
 echo "Installing deps..."
 cd "$script_dir/sd-scripts" || exit
 
-pip install --upgrade -r requirements.txt
+pip install --upgrade -r requirements.txt -i https://mirror.baidu.com/pypi/simple
+pip install protobuf==3.20.3 -i https://mirror.baidu.com/pypi/simple
+pip install --upgrade lion-pytorch lycoris-lora dadaptation prodigyopt fastapi uvicorn wandb -i https://mirror.baidu.com/pypi/simple
+pip install --upgrade --no-deps pytorch-optimizer -i https://mirror.baidu.com/pypi/simple
 
 cd "$script_dir" || exit
-
-pip install --upgrade -r requirements.txt
 
 echo "Install completed"

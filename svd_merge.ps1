@@ -8,6 +8,8 @@ $ratios = "1.0 -1.0" # ratios for each model / LoRA模型合并比例，数量�
 $save_to = "./output/lora_name_new.safetensors" # output LoRA model path, save as ckpt or safetensors | 输出路径, 保存格式 cpkt 或 safetensors
 $device = "cuda" # device to use, cuda for GPU | 使用 GPU跑, 默认 CPU
 $new_conv_rank = 0 # Specify rank of output LoRA for Conv2d 3x3, None for same as new_rank | Conv2d 3x3输出，没有默认同new_rank
+$concat=0 #concat lora instead of merge (The dim(rank) of the output LoRA is the sum of the input dims)|截取而不是合并
+$shuffle=0 #shuffle lora weight|打乱权重
 
 # Activate python venv
 .\venv\Scripts\activate
@@ -28,6 +30,14 @@ foreach ($ratio in $ratios.Split(" ")) {
 
 if ($new_conv_rank) {
   [void]$ext_args.Add("--new_conv_rank=" + $new_conv_rank)
+}
+
+if ($concat) {
+  [void]$ext_args.Add("--concat")
+}
+
+if ($shuffle) {
+  [void]$ext_args.Add("--shuffle")
 }
 
 # run svd_merge
